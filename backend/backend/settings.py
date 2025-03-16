@@ -38,8 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'apps.documents',  # Đường dẫn chính xác đến ứng dụng
-    'apps.user',       # Nếu có
+    'apps.chatbot',
+    'apps.dashboard',
+    'apps.documents',
+    # 'apps.user',
 ]
 
 MIDDLEWARE = [
