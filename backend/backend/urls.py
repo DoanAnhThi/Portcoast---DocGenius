@@ -20,19 +20,19 @@ from django.urls import path, include
 from apps.chatbot.views import home  # Import hàm home từ chatbot
 
 
-from django.shortcuts import redirect
+# from django.shortcuts import redirect
 
-def home_redirect(request):
-    return redirect('/chatbot/')  # Chuyển hướng đến chatbot
+# def home_redirect(request):
+#     return redirect('/chatbot/')  # Chuyển hướng đến chatbot
 
-
-# urlpatterns = [
-#     path('admin/', admin.site.urls),
-#     path('chatbot/', home),
-# ]
 
 urlpatterns = [
-    path('', home_redirect),  # Thêm route này
     path('admin/', admin.site.urls),
     path('chatbot/', home),
 ]
+
+# urlpatterns = [
+#     path('', home_redirect),  # Thêm route này
+#     path('admin/', admin.site.urls),
+#     path('chatbot/', home),
+# ]
