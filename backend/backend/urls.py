@@ -17,11 +17,22 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from apps.chatbot.views import home  # Import hàm home từ chatbot
+
+
+from django.shortcuts import redirect
+
+def home_redirect(request):
+    return redirect('/chatbot/')  # Chuyển hướng đến chatbot
+
+
+# urlpatterns = [
+#     path('admin/', admin.site.urls),
+#     path('chatbot/', home),
+# ]
+
 urlpatterns = [
+    path('', home_redirect),  # Thêm route này
     path('admin/', admin.site.urls),
-    path("api/", include("apps.documents.urls")),
-    path('chatbot/', include('apps.chatbot.urls')),
-    path('dashboard/', include('apps.dashboard.urls')),
-    path('documents/', include('apps.documents.urls')),
-    # path('user/', include('apps.user.urls')),
+    path('chatbot/', home),
 ]
