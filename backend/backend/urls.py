@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from apps.chatbot.views import home  # Import hàm home từ chatbot
+from apps.chatbot.views import home, upload_document, chatbot_view, chatbot_api  # Import hàm home từ chatbot
 
 
 # from django.shortcuts import redirect
@@ -28,7 +28,10 @@ from apps.chatbot.views import home  # Import hàm home từ chatbot
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('chatbot/', home),
+    path("", home),
+    path("chatbot/upload/", upload_document, name="upload_document"),
+    path("api/chatbot/", chatbot_api, name="chatbot_api"),
+    path("chatbot/", chatbot_view, name="chatbot"),
 ]
 
 # urlpatterns = [
