@@ -17,7 +17,7 @@
     <input type="text" id="user-input" placeholder="Nhập tin nhắn..." />
     <button id="send-btn">Gửi</button>
 
-    <script>
+    {% comment %} <script>
         document.getElementById("send-btn").addEventListener("click", function() {
             let userInput = document.getElementById("user-input").value;
             if (!userInput) return;
@@ -39,6 +39,41 @@
 
             document.getElementById("user-input").value = "";
         });
+    </script> {% endcomment %}
+    <script>
+        document.getElementById("send-btn").addEventListener("click", function() {
+            let userInput = document.getElementById("user-input").value.trim();
+            if (!userInput) return;
+    
+            let chatbox = document.getElementById("chatbox");
+            chatbox.innerHTML += `<p><b>You:</b> ${userInput}</p>`;
+            document.getElementById("user-input").value = "";  // Xóa input sau khi gửi
+    
+            fetch("/api/chatbot/", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: userInput })
+            })
+            .then(response => response.json())
+            .then(data => {
+                let reply = data.reply || "Không có phản hồi từ bot.";
+                chatbox.innerHTML += `<p><b>Bot:</b> ${reply}</p>`;
+                chatbox.scrollTop = chatbox.scrollHeight;  // Cuộn xuống tin nhắn mới nhất
+            })
+            .catch(error => {
+                console.error("Lỗi kết nối API:", error);
+                chatbox.innerHTML += `<p><b>Bot:</b> Không thể kết nối đến máy chủ.</p>`;
+            });
+        });
+    
+        // Bắt sự kiện Enter để gửi tin nhắn
+        document.getElementById("user-input").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                document.getElementById("send-btn").click();
+            }
+        });
     </script>
+    
 </body>
 </html>
